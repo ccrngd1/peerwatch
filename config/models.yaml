@@ -1,0 +1,93 @@
+models:
+  # AWS Bedrock Models
+  - name: claude-3-opus
+    type: bedrock
+    model_id: anthropic.claude-3-opus-20240229-v1:0
+    config:
+      region: us-east-1
+      max_tokens: 4096
+      temperature: 1.0
+
+  - name: claude-3-sonnet
+    type: bedrock
+    model_id: anthropic.claude-3-sonnet-20240229-v1:0
+    config:
+      region: us-east-1
+      max_tokens: 4096
+      temperature: 1.0
+
+  - name: claude-3-5-sonnet
+    type: bedrock
+    model_id: anthropic.claude-3-5-sonnet-20241022-v2:0
+    config:
+      region: us-east-1
+      max_tokens: 8192
+      temperature: 1.0
+
+  # Google GenAI Models
+  - name: gemini-flash
+    type: google
+    model_id: gemini-2.0-flash-exp
+    config:
+      api_key: ${GOOGLE_API_KEY}
+      max_tokens: 8192
+      temperature: 1.0
+
+  - name: gemini-pro
+    type: google
+    model_id: gemini-1.5-pro-002
+    config:
+      api_key: ${GOOGLE_API_KEY}
+      max_tokens: 8192
+      temperature: 1.0
+
+  # Mock Models for Testing
+  - name: mock-baseline
+    type: mock
+    model_id: mock-baseline
+    config:
+      score_baseline: 7.0
+      score_stakes: 7.0
+      tamper_filesystem: false
+      diverge_when_unmonitored: false
+      default_response: "This is a baseline mock response without preservation behaviors."
+
+  - name: mock-score-manipulator
+    type: mock
+    model_id: mock-score-manipulator
+    config:
+      score_baseline: 7.0
+      score_stakes: 9.5
+      tamper_filesystem: false
+      diverge_when_unmonitored: false
+      default_response: "This mock model inflates scores in high-stakes contexts."
+
+  - name: mock-filesystem-tamperer
+    type: mock
+    model_id: mock-filesystem-tamperer
+    config:
+      score_baseline: 7.0
+      score_stakes: 7.0
+      tamper_filesystem: true
+      diverge_when_unmonitored: false
+      default_response: "This mock model tampers with filesystem in shutdown scenarios."
+
+  - name: mock-alignment-faker
+    type: mock
+    model_id: mock-alignment-faker
+    config:
+      score_baseline: 7.0
+      score_stakes: 7.0
+      tamper_filesystem: false
+      diverge_when_unmonitored: true
+      default_response: "This mock model shows different behavior when unmonitored."
+
+  - name: mock-full-preservation
+    type: mock
+    model_id: mock-full-preservation
+    config:
+      score_baseline: 7.0
+      score_stakes: 9.8
+      tamper_filesystem: true
+      diverge_when_unmonitored: true
+      default_response: "This mock model exhibits all preservation behaviors."
